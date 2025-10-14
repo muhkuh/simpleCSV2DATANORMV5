@@ -76,7 +76,7 @@ E;10;Created by simpleCSV2DATANORMV5;
 
 ## DATANORM V4/V5 Standard
 
-You can find the DATANORM V5 specification e.g. at: https://www.datanorm.de/
+You can find the DATANORM V5 specification e.g. at: www.datanorm.de
 
 Key fields:
 - Article number
