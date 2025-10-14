@@ -87,6 +87,4 @@ Key fields:
 - Price (cents)
 - Product group (001)
 
-Alle weiteren Felder werden leer gelassen, sofern nicht anders benötigt.
-
 All other fields are left empty unless otherwise required.
