@@ -4,13 +4,16 @@ def csv_to_datanorm_v4(csv_path, output_path):
     import re
     today = datetime.now().strftime('%d%m%y')
     # Name für Kopfzeile als Parameter
-    DATANORM_NAME = globals().get('DATANORM_NAME', 'Artikelstammdaten')
+    DATANORM_NAME = globals().get('DATANORM_NAME', 'Article master data')
     # Header dynamisch auf 129 Zeichen auffüllen
     header_prefix = f"V {today}{DATANORM_NAME}"
     # 129 - (len(header_prefix) + len("04EUR")) = Anzahl Leerzeichen
     spaces_needed = 129 - (len(header_prefix) + len("04EUR"))
     header = f"{header_prefix}{' ' * spaces_needed}04EUR"
     artikel_lines = []
+    if not os.path.isfile(csv_path):
+        print(f"❌ Input file not found: {csv_path}")
+        return
     with open(csv_path, newline='', encoding='utf-8') as f:
         reader = csv.reader(f, delimiter=';')
         for row in reader:
@@ -56,11 +59,14 @@ from datetime import datetime
 
 def csv_to_datanorm(csv_path, output_path):
     # Variablen für Kopf und Endzeile
-    DATANORM_NAME = globals().get('DATANORM_NAME', 'Artikelstammdaten')
+    DATANORM_NAME = globals().get('DATANORM_NAME', 'Article master data')
     END_LINE_TEXT = "Created by simpleCSV2DATANORMV5"
     today = datetime.now().strftime('%Y%m%d')
     header = f"V;050;A;{today};EUR;{DATANORM_NAME};;;;;;;;;;"
     artikel_lines = []
+    if not os.path.isfile(csv_path):
+        print(f"❌ Input file not found: {csv_path}")
+        return
     with open(csv_path, newline='', encoding='utf-8') as f:
         reader = csv.reader(f, delimiter=';')
         for row in reader:
@@ -92,15 +98,15 @@ def csv_to_datanorm(csv_path, output_path):
         out.write(end_line + '\n')
 
 if __name__ == "__main__":
-    artikelstamm_dir = "example"
-    # Name für Kopfzeile als Parameter
-    DATANORM_NAME = 'Artikelstammdaten'
+    article_master_dir = "example"
+    # Name for header line as parameter
+    DATANORM_NAME = 'Article master data'
     for arg in sys.argv[1:]:
         if arg.startswith('--name='):
             DATANORM_NAME = arg.split('=',1)[1]
     globals()['DATANORM_NAME'] = DATANORM_NAME
     pattern = r"(.*)[-_](\d{8})\.csv$"
-    files = [f for f in os.listdir(artikelstamm_dir) if f.endswith('.csv')]
+    files = [f for f in os.listdir(article_master_dir) if f.endswith('.csv')]
     import re
     def get_date_from_filename(filename):
         m = re.match(pattern, filename)
@@ -115,29 +121,29 @@ if __name__ == "__main__":
         now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         output_dir = "datanorm_results"
         os.makedirs(output_dir, exist_ok=True)
-        # Version-Parameter auslesen
+        # Read version parameter
         version = 'v4'
         for arg in sys.argv[1:]:
             if arg.startswith('--version='):
                 version = arg.split('=',1)[1].lower()
         import zipfile
         for latest_file in latest_files:
-            input_csv = os.path.join(artikelstamm_dir, latest_file)
+            input_csv = os.path.join(article_master_dir, latest_file)
             base_name = os.path.splitext(latest_file)[0]
             output_datanorm = os.path.join(output_dir, f"{base_name}_DATANORM{version}_{now}.001")
-            print(f"\n===== Verarbeitung für Datei: {input_csv} =====")
+            print(f"\n===== Processing file: {input_csv} =====")
             if version == 'v5':
                 csv_to_datanorm(input_csv, output_datanorm)
-                print(f"✅ DATANORM V5-Datei erfolgreich erstellt: {output_datanorm}")
+                print(f"✅ DATANORM V5 file successfully created: {output_datanorm}")
             else:
                 csv_to_datanorm_v4(input_csv, output_datanorm)
-                print(f"✅ DATANORM V4-Datei erfolgreich erstellt: {output_datanorm}")
-            # ZIP-Archiv erstellen
+                print(f"✅ DATANORM V4 file successfully created: {output_datanorm}")
+            # Create ZIP archive
             zip_path = output_datanorm + '.zip'
             with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
                 zipf.write(output_datanorm, arcname=os.path.basename(output_datanorm))
-            print(f"📦 ZIP-Archiv erstellt: {zip_path}")
+            print(f"📦 ZIP archive created: {zip_path}")
     else:
-        print("Keine passende CSV-Datei im Ordner 'Artikelstamm' gefunden.")
+        print("No suitable CSV file found in the 'example' folder.")
         exit(1)
 

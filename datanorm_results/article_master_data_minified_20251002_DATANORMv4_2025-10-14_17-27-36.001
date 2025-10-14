@@ -1,0 +1,22 @@
+V 141025Article master data                                                                                                 04EUR
+A;N;ART-00001;00;Sample Article 1; ;1;0;Stck;10000;001; ; ;
+B;N;ART-00001; ; ; ;0;0;0; ; ; ;0;0; ; ;
+A;N;ART-00002;00;Sample Article 2; ;1;0;Stck;20050;001; ; ;
+B;N;ART-00002; ; ; ;0;0;0; ; ; ;0;0; ; ;
+A;N;ART-00003;00;Sample Article 3; ;1;0;Stck;0;001; ; ;
+B;N;ART-00003; ; ; ;0;0;0; ; ; ;0;0; ; ;
+A;N;ART-00004;00;Sample Article 4; ;1;0;Stck;9999;001; ; ;
+B;N;ART-00004; ; ; ;0;0;0; ; ; ;0;0; ; ;
+A;N;ART-00005;00;Sample Article 5; ;1;0;Stck;12345;001; ; ;
+B;N;ART-00005; ; ; ;0;0;0; ; ; ;0;0; ; ;
+A;N;ART-00006;00;Sample Article 6; ;1;0;Stck;10000;001; ; ;
+B;N;ART-00006; ; ; ;0;0;0; ; ; ;0;0; ; ;
+A;N;ART-00007;00;Sample Article 7; ;1;0;Stck;20050;001; ; ;
+B;N;ART-00007; ; ; ;0;0;0; ; ; ;0;0; ; ;
+A;N;ART-00008;00;Sample Article 8; ;1;0;Stck;0;001; ; ;
+B;N;ART-00008; ; ; ;0;0;0; ; ; ;0;0; ; ;
+A;N;ART-00009;00;Sample Article 9; ;1;0;Stck;9999;001; ; ;
+B;N;ART-00009; ; ; ;0;0;0; ; ; ;0;0; ; ;
+A;N;ART-00010;00;Sample Article 10; ;1;0;Stck;12345;001; ; ;
+B;N;ART-00010; ; ; ;0;0;0; ; ; ;0;0; ; ;
+

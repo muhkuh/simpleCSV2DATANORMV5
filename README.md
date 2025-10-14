@@ -21,7 +21,7 @@ Tool for converting CSV article master data into DATANORM V4 and V5 format.
    - By default, DATANORM V4 is generated.
    - For DATANORM V5 use: `python main.py --version=v5`
    - You can set the name for the header line: `python main.py --name="Your Company Name"`
-   - Default value for the name is "Artikelstammdaten" (used if no parameter is given).
+   - Default value for the name is "Article master data" (used if no parameter is given).
 3. The DATANORM file will be saved in the `datanorm_results` folder.
 4. Additionally, the DATANORM file will be automatically zipped (same name, `.zip` extension).
 
@@ -88,3 +88,5 @@ Key fields:
 - Product group (001)
 
 Alle weiteren Felder werden leer gelassen, sofern nicht anders benötigt.
+
+All other fields are left empty unless otherwise required.
