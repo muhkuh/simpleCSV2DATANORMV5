@@ -1,10 +1,10 @@
-ART-00001;Sample Article 1;100.00;Supplier Name
-ART-00002;Sample Article 2;200.50;Supplier Name
-ART-00003;Sample Article 3;0.00;Supplier Name
-ART-00004;Sample Article 4;99.99;Supplier Name
-ART-00005;Sample Article 5;123.45;Supplier Name
-ART-00006;Sample Article 6;100.00;Supplier Name
-ART-00007;Sample Article 7;200.50;Supplier Name
-ART-00008;Sample Article 8;0.00;Supplier Name
-ART-00009;Sample Article 9;99.99;Supplier Name
-ART-00010;Sample Article 10;123.45;Supplier Name
+ART-00001;Sample ÜArticle 1 (C);100.00;0,00
+ART-00002;Sample ÄArticle 2 (D) / VE 2x;200.50;150,00
+ART-00003;Sample ÖArticle 3 *Nettopreis*;0.00;0,00
+ART-ß004;Sample Article 4 (A) /VE 5x;99.99;0,00
+ART-00005;Sample Article 5 (B) mit “Zoll” und 2²;123.45;0,00
+ART-00006;Sample Article 6 *Nettopreis*;100.00;80,00
+ART-00007;Sample Article 7 (B) mit ® und 3³;200.50;0,00
+ART-00008;Sample Article 8 (A) mit ß und 1¹;0.00;0,00
+ART-00009;Sample ÖArticle 9 (D);99.99;0,00
+ART-00010;Sample ÜArticle 10 (C);123.45;110,00

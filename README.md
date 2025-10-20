@@ -1,3 +1,57 @@
+## Command line parameters
+
+**General usage:**
+
+```
+python main.py [options]
+```
+python main.py --input-encoding=utf-8 --output-encoding=cp850 --vk-mapping --calculate-vk2ek=A:0.25,B:0.30,C:0.35,D:0.40,E:0.45,F:0.50
+
+**Options:**
+
+- `--version=v4|v5`  
+   Select DATANORM version (default: v4)
+- `--name="Your Company Name"`  
+   Set custom name for header line (default: "Article master data")
+- `--input-encoding=<encoding>`  
+   Encoding for reading the CSV input file. Supported values:
+      - `utf-8` (default)
+      - `ansi` (Windows-1252)
+      - `iso-8859-1`
+      - `cp850`
+- `--output-encoding=<encoding>`  
+   Encoding for writing the DATANORM output file. Supported values:
+      - `utf-8` (default)
+      - `utf-8-bom` (UTF-8 with BOM)
+      - `ansi` (Windows-1252)
+      - `iso-8859-1`
+      - `cp850` (DOS)
+      - `hero` (special: writes as cp850 for Hero platform)
+- `--vk-mapping`  
+   Enable VK-Mapping: maps sales groups A,B,C,D to VK1,VK2,VK3,VK4
+- `--calculate-vk2ek`  
+   Enable VK2EK price reduction logic (default discounts: A:10%, B:20%, ... F:60%)
+- `--calculate-vk2ek=MAP`  
+   Custom VK2EK discounts for groups (A-F), comma-separated (e.g. A:0.12,B:0.25,...)
+
+**Examples:**
+
+```
+python main.py --version=v5 --name="My Company" --input-encoding=utf-8 --output-encoding=ansi
+python main.py --input-encoding=utf-8 --output-encoding=utf-8-bom
+python main.py --input-encoding=ansi --output-encoding=cp850
+python main.py --output-encoding=hero
+python main.py --vk-mapping
+python main.py --calculate-vk2ek
+python main.py --calculate-vk2ek=A:0.12,B:0.25,C:0.33,D:0.45,E:0.55,F:0.66
+```
+
+**Encoding notes:**
+- Use `utf-8` for maximum compatibility and correct umlauts.
+- Use `ansi` or `iso-8859-1` for legacy Windows systems.
+- Use `cp850` for DOS-based platforms.
+- Use `utf-8-bom` if the target system requires a BOM.
+- Use `hero` for Hero platform compatibility (cp850 output).
 
 
 # simpleCSV2DATANORMV5
@@ -6,7 +60,12 @@ Tool for converting CSV article master data into DATANORM V4 and V5 format.
 
 ## Usage
 
-1. Place your CSV file in the `Artikelstamm` folder. The format should look like this:
+1. Use the provided example file for testing: `example/article_master_data_minified_20251002.csv`.
+   This file contains various test cases (umlauts, special characters, price logic, superscript numbers, etc.) and can be used directly as input.
+
+   All CSV files placed in the `example` folder will be processed automatically. You can add your own test files to this folder for batch conversion.
+
+   Example content:
    ```csv
    ART-00001;Sample Article 1;100.00;Supplier Name
    ART-00002;Sample Article 2;200.50;Supplier Name
@@ -74,17 +133,35 @@ E;10;Created by simpleCSV2DATANORMV5;
 - The file is automatically zipped.
 - Header and end line are configurable.
 
-## DATANORM V4/V5 Standard
+# VK-Mapping and VK2EK price reduction
 
-You can find the DATANORM V5 specification e.g. at: datanorm.de
+## VK-Mapping
+- Enable with `--vk-mapping`
+- Maps sales groups A,B,C,D to VK1,VK2,VK3,VK4 in the output
+- Useful for systems expecting VK1-VK4 instead of A-D
 
-Key fields:
-- Article number
-- Description
-- Unit (PCE)
-- Quantity (1)
-- Discount (1)
-- Price (cents)
-- Product group (001)
+## VK2EK price reduction
+- Enable with `--calculate-vk2ek`
+- Applies a discount to the price for sales groups A-F
+- Default discounts: A:10%, B:20%, C:30%, D:40%, E:50%, F:60%
+- Custom discounts: `--calculate-vk2ek=A:0.12,B:0.25,C:0.33,D:0.45,E:0.55,F:0.66`
+- Only one example per group is printed to the console for verification
+- Example output:
+  - VK2EK Example: Group=A, Discount=12.0%, Original=100.00, New=88.00
 
-All other fields are left empty unless otherwise required.
+## Full parameter overview
+
+| Parameter                | Description                                                                                 | Example                                                      |
+|--------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| --version=v4/v5          | DATANORM version (default: v4)                                                             | --version=v5                                                 |
+| --name=NAME              | Name for DATANORM file header                                                               | --name="Article master data"                                |
+| --input-encoding=ENC     | Input CSV encoding: utf-8, windows-1252 (ANSI), iso-8859-1, cp850, utf-8-bom, hero          | --input-encoding=utf-8                                       |
+| --output-encoding=ENC    | Output DATANORM encoding: utf-8, windows-1252 (ANSI), iso-8859-1, cp850, utf-8-bom, hero    | --output-encoding=cp850                                      |
+| --vk-mapping             | Enable VK-Mapping: maps sales groups A,B,C,D to VK1,VK2,VK3,VK4                             | --vk-mapping                                                 |
+| --calculate-vk2ek        | Enable VK2EK price reduction logic (default discounts: A:10%, B:20%, ... F:60%)            | --calculate-vk2ek                                            |
+| --calculate-vk2ek=MAP    | Custom VK2EK discounts for groups (A-F), comma-separated (e.g. A:0.12,B:0.25,...)          | --calculate-vk2ek=A:0.12,B:0.25,C:0.33,D:0.45,E:0.55,F:0.66   |
+
+## Example usage
+```bash
+python main.py --input-encoding=utf-8 --output-encoding=cp850 --vk-mapping --calculate-vk2ek=A:0.12,B:0.25,C:0.33,D:0.45,E:0.55,F:0.66
+```
